@@ -9,7 +9,6 @@ def zoom_array(lst: Tuple, factor: int = 2) -> List:
         item for item in lst
         for _ in range(factor)
     ]
-    print(zoomed_in)
     return zoomed_in
 
 
