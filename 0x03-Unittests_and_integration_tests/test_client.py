@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""tests the client module"""
+"""tests the client module
+for learning integration tests"""
 
 import unittest
 from unittest.mock import patch, PropertyMock
@@ -8,7 +9,8 @@ from client import GithubOrgClient, get_json
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """tests the githuborgclient class"""
+    """tests the githuborgclient class
+    with all the methods and attruibutes"""
 
     @parameterized.expand([
         ("google",),
@@ -16,7 +18,8 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch("client.get_json")
     def test_org(self, org_name, mock_get_json):
-        """Test the org method of GithubOrgClient"""
+        """Test the org method of GithubOrgClient
+        and test the org method"""
 
         # Set up the mock get_json method to return a specific value
         mock_get_json.return_value = {"login": org_name}
@@ -35,7 +38,8 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(result, {"login": org_name})
 
     def test_public_repos_url(self):
-        """tests _public_repos_url"""
+        """tests _public_repos_url
+        and its return value"""
         TEST_PAYLOAD = {
             "repos_url": "https://api.github.com/orgs/example-org/repos"
         }
@@ -49,7 +53,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch("client.get_json")
     def test_public_repos(self, mock_get_json):
-        """taste the public repos method"""
+        """test the public repos method
+        and the return value"""
         TEST_PAYLOAD = [{"name": "repo1"}, {"name": "repo2"}]
         mock_get_json.return_value = TEST_PAYLOAD
         public_repos_url_payload =\
