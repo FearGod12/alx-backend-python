@@ -57,7 +57,7 @@ class TestGithubOrgClient(unittest.TestCase):
         and the return value"""
         TEST_PAYLOAD = [{"name": "repo1"}, {"name": "repo2"}]
         mock_get_json.return_value = TEST_PAYLOAD
-        public_repos_url_payload =\
+        public_repos_url_payload = \
             "https://api.github.com/orgs/example-org/repos"
         with patch("client.GithubOrgClient._public_repos_url",
                    new_callable=PropertyMock) as mock_repos:
@@ -69,3 +69,12 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_repos.assert_called_once()
 
             self.assertEqual(result, ['repo1', 'repo2'])
+
+    @parameterized.expand([({"license": {"key": "my_license"}},
+                            "my_license", True),
+                           ({"license": {"key": "other_license"}},
+                            "my_license", False)])
+    def test_has_license(self, repo, my_license, expected_result):
+        """tests if attributes has licence works"""
+        client = GithubOrgClient("org_name")
+        self.assertEqual(client.has_license(repo, my_license), expected_result)
